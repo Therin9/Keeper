@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS applied_events(review_id INTEGER NOT NULL, event_inde
 conn.commit()
 # Additive migrations preserve the v1 database and registered characters.
 existing={r['name'] for r in conn.execute('PRAGMA table_info(characters)')}
-for column, definition in {'class_name':"TEXT NOT NULL DEFAULT ''",'level':'INTEGER NOT NULL DEFAULT 1','channel_id':'INTEGER','currency':"TEXT NOT NULL DEFAULT '{\"pp\":0,\"gp\":0,\"ep\":0,\"sp\":0,\"cp\":0}"}.items():
+for column, definition in {'class_name':"TEXT NOT NULL DEFAULT ''",'level':'INTEGER NOT NULL DEFAULT 1','channel_id':'INTEGER','currency':"TEXT NOT NULL DEFAULT '{\"pp\":0,\"gp\":0,\"ep\":0,\"sp\":0,\"cp\":0}'"}.items():
     if column not in existing: conn.execute(f'ALTER TABLE characters ADD COLUMN {column} {definition}')
 conn.commit()
 CHAR_CHANNELS=[int(os.getenv(f'CHARACTER_CHANNEL_{i}', '0')) for i in (1,2,3)]
